@@ -101,6 +101,28 @@
     return false;
   }
 
+  // ChatGPT marks inline citations / nav chips with invisible Private Use
+  // Area (PUA) characters wrapping a literal token, e.g.
+  //   <PUA>cite<PUA>turn0search11<PUA>
+  // The page renders these as citation bubbles, so a DOM/textContent read
+  // drops them; but the conversation data API returns them verbatim, where
+  // they leak into the answer as garbage like "citeturn0search11" or
+  // "citeturn0news28turn0search11".
+  //
+  // We do NOT rely on knowing which PUA code points wrap the token (they
+  // vary, and may already be stripped upstream). Instead:
+  //   1) strip ALL Private Use Area chars (U+E000-U+F8FF) - real answer text
+  //      never uses them - so whatever invisible delimiters exist vanish;
+  //   2) strip the now-bare token by its shape: "cite" + one or more
+  //      "turn<digits><word><digits>" groups.
+  // The leading [ \t]* eats the space the token used to sit after so we do
+  // not leave a double space behind.
+  function stripInlineMarkers(s) {
+    return s
+      .replace(/[\ue000-\uf8ff]/g, "")
+      .replace(/[ \t]*\bcite(?:turn\d+[a-z]+\d+)+/g, "");
+  }
+
   // Strip ChatGPT "writing/canvas" directive fences so the answer is clean prose
   // rather than raw markup, e.g.:
   //   :::writing{variant="standard" id="58294"}
@@ -108,7 +130,7 @@
   //   :::
   function cleanAnswerText(s) {
     if (!s) return s;
-    return s
+    return stripInlineMarkers(s)
       .split("\n")
       .filter((line) => !/^\s*:::/.test(line))
       .join("\n")
