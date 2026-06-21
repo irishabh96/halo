@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "Halo",
+  "version": "1.0.0",
+  "description": "Ask anything and get answers from ChatGPT, with one-click rephrase, shorten, professional, longer, humanize and custom follow-ups. No backend, no API key.",
+  "permissions": ["sidePanel", "tabs", "scripting", "storage"],
+  "host_permissions": [
+    "https://chatgpt.com/*",
+    "https://chat.openai.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "action": {
+    "default_title": "Halo",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chatgpt.com/*",
+        "https://chat.openai.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["selection.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

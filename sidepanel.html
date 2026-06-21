@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!--
+  Halo - Ask ChatGPT from a side panel
+  Author: Rishabh Bhatia <irishabh96@gmail.com>
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Halo</title>
+    <link rel="stylesheet" href="sidepanel.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>Halo</h1>
+      <p class="subtitle">make sure your chatgpt is logged in</p>
+    </header>
+
+    <main>
+      <section class="input-section">
+        <textarea
+          id="question"
+          placeholder="Type your question or text here…"
+          rows="4"
+        ></textarea>
+        <button id="answer-btn" class="primary">
+          <span>Answer<span class="hint mono">⌘↵</span></span>
+        </button>
+      </section>
+
+      <div id="status" class="status" role="status" aria-live="polite"></div>
+
+      <section class="response-section" id="response-section" hidden>
+        <div class="response-header">
+          <span class="response-label">Answer</span>
+          <button
+            id="copy-btn"
+            class="icon-btn"
+            type="button"
+            aria-label="Copy answer"
+            title="Copy"
+          >
+            <svg
+              class="icon-copy"
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <rect x="9" y="9" width="11" height="11" rx="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <svg
+              class="icon-check"
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M20 6 9 17l-5-5"></path>
+            </svg>
+          </button>
+        </div>
+        <div id="response" class="response"></div>
+      </section>
+
+      <section class="transform-section" id="transform-section" hidden>
+        <div class="transform-label">Refine the answer</div>
+        <div class="transform-grid">
+          <button class="transform" data-action="rephrase" disabled>Rephrase</button>
+          <button class="transform" data-action="shorten" disabled>Shorten</button>
+          <button class="transform" data-action="professional" disabled>
+            Professional
+          </button>
+          <button class="transform" data-action="longer" disabled>Longer</button>
+          <button class="transform" data-action="humanize" disabled>
+            Humanize
+          </button>
+        </div>
+        <div class="custom-row">
+          <input
+            id="custom"
+            class="custom-input"
+            type="text"
+            placeholder="Custom instruction (e.g. add an example)…"
+            disabled
+          />
+          <button
+            id="custom-btn"
+            class="transform custom-btn"
+            data-action="custom"
+            disabled
+          >
+            Ask
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <script src="sidepanel.js"></script>
+  </body>
+</html>
