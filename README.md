@@ -8,6 +8,15 @@ and an **Ask Halo** button when you select text on any page.
 
 No backend, no API key. It uses your existing chatgpt.com login (free tier is fine).
 
+![Halo answering a selected application question in the side panel](assets/screen0.png)
+
+## Why "Halo"?
+
+Built out of the very specific frustration of filling in yet another application box that asks:
+_"Tell me one interesting project you've built and how."_ So I built the thing that answers it.
+Now I just select the question, hit **Ask Halo**, and let it do the talking. Yes, this is that
+project. Yes, it is gloriously meta.
+
 ## How it works
 
 ```
